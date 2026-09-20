@@ -1,0 +1,19 @@
+15:07:53	create database demo	1 row(s) affected	0.000 sec
+
+15:07:59	use demo	0 row(s) affected	0.000 sec
+
+15:08:04	create table Student(  id int,  name varchar(200),  age int,  country varchar(50) )	0 row(s) affected	0.016 sec
+
+15:13:46	CREATE DATABASE `student-management`	1 row(s) affected	0.000 sec
+
+15:15:46	Apply changes to class	Changes applied	
+
+15:17:43	Apply changes to class	Changes applied	
+
+15:19:34	Apply changes to class	Changes applied	
+
+15:19:52	Apply changes to class	No changes detected	
+
+15:19:54	Apply changes to class	No changes detected	
+
+15:25:42	Apply changes to Teacher	Changes applied	
