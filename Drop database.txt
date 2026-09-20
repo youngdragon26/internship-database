@@ -1,0 +1,3 @@
+15:03:16	DROP DATABASE `intern1`	0 row(s) affected	0.000 sec
+
+15:04:41	DROP DATABASE `intern`	0 row(s) affected	0.016 sec
