@@ -1,0 +1,5 @@
+15:07:53	create database demo	1 row(s) affected	0.000 sec
+
+15:07:59	use demo	0 row(s) affected	0.000 sec
+
+15:08:04	create table Student(  id int,  name varchar(200),  age int,  country varchar(50) )	0 row(s) affected	0.016 sec
