@@ -4,10 +4,11 @@ Công cụ: Claude. Ngày: 03/10/2026.
 
 | STT | Nội dung trao đổi | Tóm tắt câu trả lời của AI | Cách áp dụng |
 |---|---|---|---|
-| 1 | Gửi đề bài cho AI | AI nhắc quy tắc của đề (không nhờ AI viết toàn bộ script), giải thích các khái niệm được phép hỏi | Dùng làm nền để hiểu bài |
-| 2 | Dùng `DECIMAL` thế nào cho cột tài chính | `DECIMAL(p, s)` lưu chính xác, `FLOAT` lưu gần đúng. `DECIMAL(10, 2)` chứa tối đa 99.999.999,99 | Chọn `DECIMAL(10, 2)` cho 3 cột tiền |
-| 3 | Xử lý `NULL` khi tính tiền hoàn lại | Phép tính có `NULL` sẽ ra `NULL`. Dùng `NOT NULL DEFAULT 0` hoặc `COALESCE(cot, 0)` | Đặt `NOT NULL DEFAULT 0` cho các cột phí |
-| 4 | Quan hệ 1-1 hay 1-N giữa Rentals và Inspections | 1-1 cần `UNIQUE` trên `rental_id`, 1-N linh hoạt hơn vì ghi được nhiều lần kiểm tra | Chọn 1-N |
-| 5 | Cơ chế chặn insert Inspections khi hợp đồng còn BOOKED | Khóa ngoại và `CHECK` không đọc được bảng khác, nên dùng `TRIGGER BEFORE INSERT` với `SIGNAL SQLSTATE '45000'` | Chuẩn bị cho phần vấn đáp |
-| 6 | Xin hướng dẫn chi tiết từng bước | AI đưa khung lệnh có chỗ trống cho DDL và DML, kèm các lỗi dễ mắc | Làm theo thứ tự 4 bước |
-| 7 | Nhờ AI điền các chỗ trống và viết toàn bộ bài | AI điền khung lệnh, viết 3 file nộp bài và lưu ý rằng script chưa được chạy thử | Chạy lại trên MySQL để kiểm tra kết quả 8.000.000 |
+| 1 | Gửi đề bài cho AI | AI nhắc quy tắc của đề (không nhờ AI viết sẵn đáp án), rồi giải thích theo các câu hỏi gợi ý trong đề | Dùng để hiểu nguyên nhân lỗi |
+| 2 | `JOIN` mặc định trong MySQL hoạt động thế nào | Là `INNER JOIN`, chỉ giữ dòng khớp ở cả hai bảng, nên Charlie bị loại và điều kiện `IS NULL` luôn sai | Xác định nguyên nhân của lỗi 1 và lỗi 2 |
+| 3 | `COUNT(*)` hay `COUNT(cột)` khi dùng `LEFT JOIN` | `COUNT(*)` đếm dòng nên khách chưa mua ra 1; `COUNT(o.order_id)` bỏ qua `NULL` nên ra 0 | Dùng `COUNT(o.order_id)` trong báo cáo 1 |
+| 4 | `LEFT JOIN ... IS NULL` so với `NOT IN` | Từ MySQL 8.0 cả hai thường được tối ưu thành anti-join; `NOT IN` trả về rỗng nếu subquery có `NULL` | Chọn `LEFT JOIN ... IS NULL` cho báo cáo 2 |
+| 5 | Giả lập `FULL OUTER JOIN` trong MySQL | Dùng `LEFT JOIN ... UNION ... RIGHT JOIN` | Kiến thức mở rộng |
+| 6 | MySQL thực hiện JOIN bằng thuật toán gì | Nested-Loop Join: duyệt từng dòng bảng ngoài, tìm dòng khớp ở bảng trong, nhanh khi có index; từ 8.0.18 có hash join khi không có index | Kiến thức mở rộng |
+| 7 | `RIGHT JOIN` giữ nguyên thứ tự bảng, và Cross Join là gì | `RIGHT JOIN` giữ toàn vẹn bảng Orders nên Charlie lại mất; Cross Join xảy ra khi thiếu điều kiện `ON`, số dòng bằng tích hai bảng | Chuẩn bị vấn đáp |
+| 8 | Nhờ AI tạo 3 file nộp bài | AI viết 3 file và lưu ý script chưa được chạy thử | Chạy lại trên MySQL, chụp Result Grid |
