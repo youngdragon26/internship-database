@@ -1,17 +1,24 @@
+-- Sử dụng cơ sở dữ liệu classicmodels (hoặc cơ sở dữ liệu mẫu của bạn)
+USE classicmodels;
+
+-- ==========================================
+-- 1. THAM SỐ LOẠI IN
+-- ==========================================
 DELIMITER //
 
-CREATE PROCEDURE getCusById(IN cusNum INT(11))
+CREATE PROCEDURE IF NOT EXISTS getCusById(IN cusNum INT(11))
 BEGIN
   SELECT * FROM customers WHERE customerNumber = cusNum;
 END //
 
 DELIMITER ;
 
-CALL getCusById(175);
-
+-- ==========================================
+-- 2. THAM SỐ LOẠI OUT
+-- ==========================================
 DELIMITER //
 
-CREATE PROCEDURE GetCustomersCountByCity(
+CREATE PROCEDURE IF NOT EXISTS GetCustomersCountByCity(
     IN in_city VARCHAR(50),
     OUT total INT
 )
@@ -24,12 +31,12 @@ END//
 
 DELIMITER ;
 
-CALL GetCustomersCountByCity('Lyon', @total);
-SELECT @total;
-
+-- ==========================================
+-- 3. THAM SỐ LOẠI INOUT
+-- ==========================================
 DELIMITER //
 
-CREATE PROCEDURE SetCounter(
+CREATE PROCEDURE IF NOT EXISTS SetCounter(
     INOUT counter INT,
     IN inc INT
 )
@@ -38,9 +45,3 @@ BEGIN
 END//
 
 DELIMITER ;
-
-SET @counter = 1;
-CALL SetCounter(@counter, 1); -- Trợ lý/Kết quả bên trong sẽ tăng lên 2
-CALL SetCounter(@counter, 1); -- Tăng lên 3
-CALL SetCounter(@counter, 5); -- Tăng lên 8
-SELECT @counter;              -- Trả về kết quả cuối cùng là 8
