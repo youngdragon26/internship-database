@@ -1,0 +1,12 @@
+SELECT * 
+FROM subject 
+WHERE credit = (SELECT MAX(credit) FROM subject);
+SELECT s.* 
+FROM subject s
+JOIN mark m ON s.sub_id = m.sub_id
+WHERE m.mark = (SELECT MAX(mark) FROM mark);
+SELECT st.*, AVG(m.mark) AS diem_trung_binh
+FROM student st
+LEFT JOIN mark m ON st.student_id = m.student_id
+GROUP BY st.student_id
+ORDER BY diem_trung_binh DESC;
